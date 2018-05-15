@@ -1,0 +1,11 @@
+//Restaurantes por zipcode
+db.restaurants.group({key: {'address.zipcode':1},reduce: function( curr, result ) {result.total += 1;},initial: { total : 0 }})
+
+//Grades por usuario
+db.restaurants.aggregate({$project: {name:"$name",count:{$size:"$grades"}}});
+
+//Scores por usuario
+db.restaurants.aggregate([{$unwind: "$grades"},{"$group": {"_id": "$name", "total": {"$sum": "$grades.score"}}},{$project: {total:1}}]);
+
+
+//Missing 4, 5, 6

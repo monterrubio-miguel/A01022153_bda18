@@ -1,0 +1,15 @@
+use UBA
+
+db.createCollection("cursos")
+
+db.cursos.insert({nombre:"clase1"})
+db.cursos.update({nombre:"clase1"},{"$set":{profesor: "prof1"}})
+db.cursos.update({nombre:"clase1"},{"$set":{año: "2018"}})
+db.cursos.update({"titulo":"clase1"}, {"$set":{"evEscritas":{"teo":2, "prac":2}}})
+db.cursos.update({"titulo":"clase1"}, {"$set":{"alumnos":[{"matricula":"A01022153", "nombre":"Miguel", "direccion":"aqui a la vuelta", "genero":"masculino"}]}})
+db.cursos.update({"titulo":"clase1"}, {"$push":{"alumnos":{"matricula":"A00000001", "nombre":"Alumno1", "direccion":"quien sabe", "genero":"masculino?"}}})
+db.cursos.update({"titulo":"clase1"}, {"$push":{"alumnos":{"matricula":"A00000002", "nombre":"Alumno2", "direccion":"vive con a1", "genero":"femenino"}}})
+db.cursos.update({titulo:"clase1", "alumnos.nombre":"Miguel"}, {$set:{"alumnos.$.cursoInscrito":[{"nombre":"Clas1","año":"2014","calificaciones":{"eval1":100, "eval2":100, "eval3":100, "eval4":100, "calificacionFinal":100}}]}})
+db.cursos.update({"titulo":"clase1"}, {"$set":{"profesores":[{"nombre":"Ariel", "nomina":"L00000000", "direccion":"donde vives ariel?", "genero":"masculino"}]}})
+db.cursos.update({titulo:"clase1", "profesores.nombre":"Don Falso"}, {$set:{"profesores.$.cursos-impartidos":[{"titulo":"Metodos","año-impartido":"2018"}, {"titulo":"Graficas computacionales","año-impartido":"2018"}]}})
+db.cursos.update({titulo:"clase1", "profesores.nombre":"Ariel"}, {$set:{"profesores.$.cursoImpartido":[{"nombre":"Bases","año-impartido":"2018"}]}})
